@@ -131,19 +131,64 @@
   </div>
 
   <script>
-    const datosProvincia = {
-      "Madrid": { precio_m2: 3500, alquiler_m2: 14, ibi: 0.007, basura: 100, itp: 0.06 },
-      "Barcelona": { precio_m2: 3200, alquiler_m2: 13, ibi: 0.0065, basura: 90, itp: 0.10 },
-      "Sevilla": { precio_m2: 1700, alquiler_m2: 8, ibi: 0.0066, basura: 70, itp: 0.07 }
-    };
-
     const selectProvincia = document.getElementById("provincia");
-    Object.keys(datosProvincia).forEach(p => {
-      const opt = document.createElement("option");
-      opt.value = p;
-      opt.innerText = p;
-      selectProvincia.appendChild(opt);
-    });
+    fetch('provincias_datos.json')
+      .then(res => res.json())
+      .then(datosProvincia => {
+        Object.keys(datosProvincia).forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p;
+          opt.innerText = p;
+          selectProvincia.appendChild(opt);
+        });
+
+        window.calcularTodo = function () {
+          const capital = parseMiles(document.getElementById("capital").value);
+          const provincia = document.getElementById("provincia").value;
+          const m2 = parseMiles(document.getElementById("metros2").value);
+          const alquilerMensual = parseMiles(document.getElementById("alquiler").value);
+          const usarHipoteca = document.getElementById("hipoteca").value === "si";
+          const datos = datosProvincia[provincia];
+
+          const precioCompra = m2 * datos.precio_m2;
+          const gastosCompra = precioCompra * datos.itp + 500;
+          const ibiAnual = precioCompra * datos.ibi;
+          const basuraAnual = datos.basura;
+          const costeTotal = precioCompra + gastosCompra;
+          const ingresoAnual = alquilerMensual * 12;
+          const gastosAnuales = ibiAnual + basuraAnual;
+
+          let resultado = `
+            <p><strong>Precio estimado de la vivienda:</strong> ${precioCompra.toLocaleString('es-ES')} €</p>
+            <p><strong>Gastos de compra estimados:</strong> ${gastosCompra.toLocaleString('es-ES')} €</p>
+            <p><strong>Coste total:</strong> ${costeTotal.toLocaleString('es-ES')} €</p>
+          `;
+
+          let faltante = costeTotal - capital;
+          if (faltante > 0) {
+            resultado += `<p style='color:red;'>Te faltan ${faltante.toLocaleString('es-ES')} €.</p>`;
+          } else {
+            const sobrante = capital - costeTotal;
+            resultado += `<p style='color:green;'>Te sobran ${sobrante.toLocaleString('es-ES')} € para invertir en fondos.</p>`;
+          }
+
+          resultado += `<p><strong>Ingresos anuales por alquiler:</strong> ${ingresoAnual.toLocaleString('es-ES')} €</p>`;
+          resultado += `<p><strong>Gastos anuales (IBI + basura):</strong> ${gastosAnuales.toLocaleString('es-ES')} €</p>`;
+
+          if (usarHipoteca) {
+            const prestamo = parseMiles(document.getElementById("importePrestamo").value);
+            const interes = parseFloat(document.getElementById("interesPrestamo").value) / 100;
+            const anios = parseFloat(document.getElementById("aniosPrestamo").value);
+            const cuotaAnual = prestamo * interes / (1 - Math.pow(1 + interes, -anios));
+            resultado += `<p><strong>Cuota anual de hipoteca:</strong> ${cuotaAnual.toLocaleString('es-ES')} €</p>`;
+            resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales - cuotaAnual).toLocaleString('es-ES')} €</p>`;
+          } else {
+            resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales).toLocaleString('es-ES')} €</p>`;
+          }
+
+          document.getElementById("resultado").innerHTML = resultado;
+        };
+      });
 
     document.getElementById("hipoteca").addEventListener("change", e => {
       document.getElementById("opcionesHipoteca").style.display = e.target.value === "si" ? "block" : "none";
@@ -154,56 +199,14 @@
     }
 
     function formatMiles(input) {
-      const val = input.value.replace(/\./g, '').replace(',', '');
+      let val = input.value.replace(/\./g, '').replace(',', '');
       if (!val) return;
-      input.value = parseFloat(val).toLocaleString('es-ES');
-    }
-
-    function calcularTodo() {
-      const capital = parseMiles(document.getElementById("capital").value);
-      const provincia = document.getElementById("provincia").value;
-      const m2 = parseMiles(document.getElementById("metros2").value);
-      const alquilerMensual = parseMiles(document.getElementById("alquiler").value);
-      const usarHipoteca = document.getElementById("hipoteca").value === "si";
-      const datos = datosProvincia[provincia];
-
-      const precioCompra = m2 * datos.precio_m2;
-      const gastosCompra = precioCompra * datos.itp + 500;
-      const ibiAnual = precioCompra * datos.ibi;
-      const basuraAnual = datos.basura;
-      const costeTotal = precioCompra + gastosCompra;
-      const ingresoAnual = alquilerMensual * 12;
-      const gastosAnuales = ibiAnual + basuraAnual;
-
-      let resultado = `
-        <p><strong>Precio estimado de la vivienda:</strong> ${precioCompra.toLocaleString('es-ES')} €</p>
-        <p><strong>Gastos de compra estimados:</strong> ${gastosCompra.toLocaleString('es-ES')} €</p>
-        <p><strong>Coste total:</strong> ${costeTotal.toLocaleString('es-ES')} €</p>
-      `;
-
-      let faltante = costeTotal - capital;
-      if (faltante > 0) {
-        resultado += `<p style='color:red;'>Te faltan ${faltante.toLocaleString('es-ES')} €.</p>`;
-      } else {
-        const sobrante = capital - costeTotal;
-        resultado += `<p style='color:green;'>Te sobran ${sobrante.toLocaleString('es-ES')} € para invertir en fondos.</p>`;
+      let num = parseInt(val);
+      if (isNaN(num)) {
+        input.value = '';
+        return;
       }
-
-      resultado += `<p><strong>Ingresos anuales por alquiler:</strong> ${ingresoAnual.toLocaleString('es-ES')} €</p>`;
-      resultado += `<p><strong>Gastos anuales (IBI + basura):</strong> ${gastosAnuales.toLocaleString('es-ES')} €</p>`;
-
-      if (usarHipoteca) {
-        const prestamo = parseMiles(document.getElementById("importePrestamo").value);
-        const interes = parseFloat(document.getElementById("interesPrestamo").value) / 100;
-        const anios = parseFloat(document.getElementById("aniosPrestamo").value);
-        const cuotaAnual = prestamo * interes / (1 - Math.pow(1 + interes, -anios));
-        resultado += `<p><strong>Cuota anual de hipoteca:</strong> ${cuotaAnual.toLocaleString('es-ES')} €</p>`;
-        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales - cuotaAnual).toLocaleString('es-ES')} €</p>`;
-      } else {
-        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales).toLocaleString('es-ES')} €</p>`;
-      }
-
-      document.getElementById("resultado").innerHTML = resultado;
+      input.value = num.toLocaleString('es-ES');
     }
 
     function calcularFondos() {
@@ -226,4 +229,3 @@
   </script>
 </body>
 </html>
-
