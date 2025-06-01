@@ -3,50 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Inversión: Vivienda vs Fondos</title>
+  <title>Comparativa de Inversión</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; background: #f9f9f9; }
-    h1 { color: #333; }
-    label { display: block; margin-top: 1rem; font-weight: bold; }
-    input, select { padding: 0.5rem; margin-top: 0.2rem; width: 100%; max-width: 300px; }
-    .output { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 5px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #1a202c;
+      margin-bottom: 1rem;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #2d3748;
+    }
+    input, select {
+      padding: 0.5rem;
+      margin-top: 0.2rem;
+      width: 100%;
+      max-width: 100%;
+      font-size: 1rem;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .output {
+      margin-top: 1.5rem;
+      background: #edf2f7;
+      padding: 1rem;
+      border-radius: 8px;
+      color: #2d3748;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2c5282;
+    }
   </style>
 </head>
 <body>
-  <h1>Calculadora de Inversión: Vivienda vs Fondos</h1>
+  <h1>Comparativa de Inversión</h1>
+  <div class="container">
+    <div class="card">
+      <label>Capital disponible (€):</label>
+      <input type="text" id="capital" oninput="formatMiles(this)">
 
-  <label>Capital disponible (€):</label>
-  <input type="number" id="capital" placeholder="Ej: 100000">
+      <label>Provincia:</label>
+      <select id="provincia"></select>
 
-  <label>Provincia:</label>
-  <select id="provincia"></select>
+      <label>Metros cuadrados que deseas comprar:</label>
+      <input type="text" id="metros2" oninput="formatMiles(this)">
 
-  <label>Metros cuadrados que deseas comprar:</label>
-  <input type="number" id="metros2" placeholder="Ej: 80">
+      <label>Alquiler mensual estimado (€):</label>
+      <input type="text" id="alquiler" oninput="formatMiles(this)">
 
-  <label>¿Precio estimado del alquiler mensual (puedes modificarlo)?</label>
-  <input type="number" id="alquiler" placeholder="Ej: 800">
+      <label>¿Deseas simular una hipoteca?</label>
+      <select id="hipoteca">
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+      </select>
 
-  <label>¿Deseas simular una hipoteca?</label>
-  <select id="hipoteca">
-    <option value="no">No</option>
-    <option value="si">Sí</option>
-  </select>
+      <div id="opcionesHipoteca" style="display:none;">
+        <label>Importe del préstamo (€):</label>
+        <input type="text" id="importePrestamo" oninput="formatMiles(this)">
 
-  <div id="opcionesHipoteca" style="display:none;">
-    <label>Importe del préstamo (€):</label>
-    <input type="number" id="importePrestamo">
+        <label>Interés anual del préstamo (%):</label>
+        <input type="text" id="interesPrestamo">
 
-    <label>Interés anual del préstamo (%):</label>
-    <input type="number" id="interesPrestamo" step="0.01">
+        <label>Años del préstamo:</label>
+        <input type="text" id="aniosPrestamo">
+      </div>
 
-    <label>Años del préstamo:</label>
-    <input type="number" id="aniosPrestamo">
+      <button onclick="calcularTodo()">Calcular</button>
+      <div class="output" id="resultado"></div>
+    </div>
+
+    <div class="card">
+      <h2>Fondos de Inversión</h2>
+      <label>Capital a invertir (€):</label>
+      <input type="text" id="capitalFondos" oninput="formatMiles(this)">
+
+      <label>Rentabilidad anual esperada (%):</label>
+      <input type="text" id="rentabilidadFondos">
+
+      <label>Comisiones anuales (%):</label>
+      <input type="text" id="comisionesFondos">
+
+      <label>Duración (años):</label>
+      <input type="text" id="aniosFondos">
+
+      <button onclick="calcularFondos()">Calcular fondos</button>
+      <div class="output" id="resultadoFondos"></div>
+    </div>
   </div>
-
-  <button onclick="calcularTodo()">Calcular</button>
-
-  <div class="output" id="resultado"></div>
 
   <script>
     const datosProvincia = {
@@ -67,14 +149,24 @@
       document.getElementById("opcionesHipoteca").style.display = e.target.value === "si" ? "block" : "none";
     });
 
-    function calcularTodo() {
-      const capital = parseFloat(document.getElementById("capital").value);
-      const provincia = document.getElementById("provincia").value;
-      const m2 = parseFloat(document.getElementById("metros2").value);
-      const alquilerMensual = parseFloat(document.getElementById("alquiler").value);
-      const usarHipoteca = document.getElementById("hipoteca").value === "si";
+    function parseMiles(input) {
+      return parseFloat(input.replace(/\./g, '').replace(',', '.')) || 0;
+    }
 
+    function formatMiles(input) {
+      const val = input.value.replace(/\./g, '').replace(',', '');
+      if (!val) return;
+      input.value = parseFloat(val).toLocaleString('es-ES');
+    }
+
+    function calcularTodo() {
+      const capital = parseMiles(document.getElementById("capital").value);
+      const provincia = document.getElementById("provincia").value;
+      const m2 = parseMiles(document.getElementById("metros2").value);
+      const alquilerMensual = parseMiles(document.getElementById("alquiler").value);
+      const usarHipoteca = document.getElementById("hipoteca").value === "si";
       const datos = datosProvincia[provincia];
+
       const precioCompra = m2 * datos.precio_m2;
       const gastosCompra = precioCompra * datos.itp + 500;
       const ibiAnual = precioCompra * datos.ibi;
@@ -84,36 +176,54 @@
       const gastosAnuales = ibiAnual + basuraAnual;
 
       let resultado = `
-        <p><strong>Precio estimado de la vivienda:</strong> ${precioCompra.toFixed(2)} €</p>
-        <p><strong>Gastos de compra estimados (incl. ITP + otros):</strong> ${gastosCompra.toFixed(2)} €</p>
-        <p><strong>Coste total:</strong> ${costeTotal.toFixed(2)} €</p>
+        <p><strong>Precio estimado de la vivienda:</strong> ${precioCompra.toLocaleString('es-ES')} €</p>
+        <p><strong>Gastos de compra estimados:</strong> ${gastosCompra.toLocaleString('es-ES')} €</p>
+        <p><strong>Coste total:</strong> ${costeTotal.toLocaleString('es-ES')} €</p>
       `;
 
       let faltante = costeTotal - capital;
       if (faltante > 0) {
-        resultado += `<p style='color:red;'>Te faltan ${faltante.toFixed(2)} € para completar la compra.</p>`;
+        resultado += `<p style='color:red;'>Te faltan ${faltante.toLocaleString('es-ES')} €.</p>`;
       } else {
         const sobrante = capital - costeTotal;
-        resultado += `<p style='color:green;'>Te sobran ${sobrante.toFixed(2)} € que podrías invertir en fondos.</p>`;
+        resultado += `<p style='color:green;'>Te sobran ${sobrante.toLocaleString('es-ES')} € para invertir en fondos.</p>`;
       }
 
-      resultado += `<p><strong>Ingresos anuales por alquiler:</strong> ${ingresoAnual.toFixed(2)} €</p>`;
-      resultado += `<p><strong>Gastos anuales (IBI + basuras):</strong> ${gastosAnuales.toFixed(2)} €</p>`;
+      resultado += `<p><strong>Ingresos anuales por alquiler:</strong> ${ingresoAnual.toLocaleString('es-ES')} €</p>`;
+      resultado += `<p><strong>Gastos anuales (IBI + basura):</strong> ${gastosAnuales.toLocaleString('es-ES')} €</p>`;
 
       if (usarHipoteca) {
-        const prestamo = parseFloat(document.getElementById("importePrestamo").value);
+        const prestamo = parseMiles(document.getElementById("importePrestamo").value);
         const interes = parseFloat(document.getElementById("interesPrestamo").value) / 100;
         const anios = parseFloat(document.getElementById("aniosPrestamo").value);
-
         const cuotaAnual = prestamo * interes / (1 - Math.pow(1 + interes, -anios));
-        resultado += `<p><strong>Cuota anual de hipoteca estimada:</strong> ${cuotaAnual.toFixed(2)} €</p>`;
-        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales - cuotaAnual).toFixed(2)} €</p>`;
+        resultado += `<p><strong>Cuota anual de hipoteca:</strong> ${cuotaAnual.toLocaleString('es-ES')} €</p>`;
+        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales - cuotaAnual).toLocaleString('es-ES')} €</p>`;
       } else {
-        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales).toFixed(2)} €</p>`;
+        resultado += `<p><strong>Beneficio neto anual:</strong> ${(ingresoAnual - gastosAnuales).toLocaleString('es-ES')} €</p>`;
       }
 
       document.getElementById("resultado").innerHTML = resultado;
     }
+
+    function calcularFondos() {
+      const capital = parseMiles(document.getElementById("capitalFondos").value);
+      const rentabilidad = parseFloat(document.getElementById("rentabilidadFondos").value) / 100;
+      const comisiones = parseFloat(document.getElementById("comisionesFondos").value) / 100;
+      const anios = parseFloat(document.getElementById("aniosFondos").value);
+
+      let capitalFinal = capital;
+      for (let i = 0; i < anios; i++) {
+        capitalFinal *= 1 + rentabilidad - comisiones;
+      }
+
+      const ganancia = capitalFinal - capital;
+      document.getElementById("resultadoFondos").innerHTML = `
+        <p><strong>Capital final estimado:</strong> ${capitalFinal.toLocaleString('es-ES')} €</p>
+        <p><strong>Ganancia neta:</strong> ${ganancia.toLocaleString('es-ES')} €</p>
+      `;
+    }
   </script>
 </body>
 </html>
+
