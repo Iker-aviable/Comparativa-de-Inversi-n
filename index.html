@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,55 +79,58 @@
   <div class="container">
     <div class="card">
       <label>Capital disponible (€):</label>
-      <input type="text" id="capital" oninput="formatMiles(this)"><label>Provincia:</label>
-  <select id="provincia"></select>
+      <input type="text" id="capital" oninput="formatMiles(this)">
 
-  <label>Metros cuadrados que deseas comprar:</label>
-  <input type="text" id="metros2" oninput="formatMiles(this)">
+      <label>Provincia:</label>
+      <select id="provincia"></select>
 
-  <label>Alquiler mensual estimado (€):</label>
-  <input type="text" id="alquiler" oninput="formatMiles(this)">
+      <label>Metros cuadrados que deseas comprar:</label>
+      <input type="text" id="metros2" oninput="formatMiles(this)">
 
-  <label>¿Deseas simular una hipoteca?</label>
-  <select id="hipoteca">
-    <option value="no">No</option>
-    <option value="si">Sí</option>
-  </select>
+      <label>Alquiler mensual estimado (€):</label>
+      <input type="text" id="alquiler" oninput="formatMiles(this)">
 
-  <div id="opcionesHipoteca" style="display:none;">
-    <label>Importe del préstamo (€):</label>
-    <input type="text" id="importePrestamo" oninput="formatMiles(this)">
+      <label>¿Deseas simular una hipoteca?</label>
+      <select id="hipoteca">
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+      </select>
 
-    <label>Interés anual del préstamo (%):</label>
-    <input type="text" id="interesPrestamo">
+      <div id="opcionesHipoteca" style="display:none;">
+        <label>Importe del préstamo (€):</label>
+        <input type="text" id="importePrestamo" oninput="formatMiles(this)">
 
-    <label>Años del préstamo:</label>
-    <input type="text" id="aniosPrestamo">
+        <label>Interés anual del préstamo (%):</label>
+        <input type="text" id="interesPrestamo">
+
+        <label>Años del préstamo:</label>
+        <input type="text" id="aniosPrestamo">
+      </div>
+
+      <button onclick="calcularTodo()">Calcular</button>
+      <div class="output" id="resultado"></div>
+    </div>
+
+    <div class="card">
+      <h2>Fondos de Inversión</h2>
+      <label>Capital a invertir (€):</label>
+      <input type="text" id="capitalFondos" oninput="formatMiles(this)">
+
+      <label>Rentabilidad anual esperada (%):</label>
+      <input type="text" id="rentabilidadFondos">
+
+      <label>Comisiones anuales (%):</label>
+      <input type="text" id="comisionesFondos">
+
+      <label>Duración (años):</label>
+      <input type="text" id="aniosFondos">
+
+      <button onclick="calcularFondos()">Calcular fondos</button>
+      <div class="output" id="resultadoFondos"></div>
+    </div>
   </div>
 
-  <button onclick="calcularTodo()">Calcular</button>
-  <div class="output" id="resultado"></div>
-</div>
-
-<div class="card">
-  <h2>Fondos de Inversión</h2>
-  <label>Capital a invertir (€):</label>
-  <input type="text" id="capitalFondos" oninput="formatMiles(this)">
-
-  <label>Rentabilidad anual esperada (%):</label>
-  <input type="text" id="rentabilidadFondos">
-
-  <label>Comisiones anuales (%):</label>
-  <input type="text" id="comisionesFondos">
-
-  <label>Duración (años):</label>
-  <input type="text" id="aniosFondos">
-
-  <button onclick="calcularFondos()">Calcular fondos</button>
-  <div class="output" id="resultadoFondos"></div>
-</div>
-
-  </div>  <script>
+  <script>
     function formatearMiles(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -226,5 +230,6 @@
         <p><strong>Ganancia neta:</strong> ${formatearMiles(ganancia)} €</p>
       `;
     }
-  </script></body>
+  </script>
+</body>
 </html>
