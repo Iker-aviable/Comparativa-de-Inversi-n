@@ -1,0 +1,394 @@
+{
+  "Almeria": {
+    "itp": 0.07,
+    "ibi": 0.0061,
+    "basura": 70.0,
+    "alquiler_m2": 8.3,
+    "precio_m2": 1427
+  },
+  "Cádiz": {
+    "itp": 0.07,
+    "ibi": 0.0075,
+    "basura": 75.0,
+    "alquiler_m2": 10.2,
+    "precio_m2": 2097
+  },
+  "Córdoba": {
+    "itp": 0.07,
+    "ibi": 0.0069,
+    "basura": 80.0,
+    "alquiler_m2": 8.5,
+    "precio_m2": 1447
+  },
+  "Granada": {
+    "itp": 0.07,
+    "ibi": 0.0073,
+    "basura": 85.0,
+    "alquiler_m2": 9.6,
+    "precio_m2": 2183
+  },
+  "Huelva": {
+    "itp": 0.07,
+    "ibi": 0.0095,
+    "basura": 65.0,
+    "alquiler_m2": 9.2,
+    "precio_m2": 1585
+  },
+  "Jaén": {
+    "itp": 0.07,
+    "ibi": 0.0085,
+    "basura": 60.0,
+    "alquiler_m2": 6.2,
+    "precio_m2": 988
+  },
+  "Málaga": {
+    "itp": 0.07,
+    "ibi": 0.0074,
+    "basura": 0.0,
+    "alquiler_m2": 15.9,
+    "precio_m2": 4069
+  },
+  "Sevilla": {
+    "itp": 0.07,
+    "ibi": 0.0066,
+    "basura": 90.0,
+    "alquiler_m2": 11.1,
+    "precio_m2": 1862
+  },
+  "Huesca": {
+    "itp": 0.08,
+    "ibi": 0.0075,
+    "basura": 60.0,
+    "alquiler_m2": 9.6,
+    "precio_m2": 1343
+  },
+  "Teruel": {
+    "itp": 0.08,
+    "ibi": 0.0085,
+    "basura": 55.0,
+    "alquiler_m2": 7.4,
+    "precio_m2": 1407
+  },
+  "Zaragoza": {
+    "itp": 0.08,
+    "ibi": 0.0066,
+    "basura": 75.0,
+    "alquiler_m2": 10.2,
+    "precio_m2": 1629
+  },
+  "Asturias": {
+    "itp": 0.08,
+    "ibi": 0.011,
+    "basura": 80.0,
+    "alquiler_m2": 9.7,
+    "precio_m2": 1538
+  },
+  "Cantabria": {
+    "itp": 0.1,
+    "ibi": 0.004,
+    "basura": 70.0,
+    "alquiler_m2": 11.5,
+    "precio_m2": 2727
+  },
+  "Albacete": {
+    "itp": 0.09,
+    "ibi": 0.0075,
+    "basura": 55.0,
+    "alquiler_m2": 7.1,
+    "precio_m2": 1745
+  },
+  "Ciudad Real": {
+    "itp": 0.09,
+    "ibi": 0.0085,
+    "basura": 60.0,
+    "alquiler_m2": 5.4,
+    "precio_m2": 741
+  },
+  "Cuenca": {
+    "itp": 0.09,
+    "ibi": 0.0065,
+    "basura": 55.0,
+    "alquiler_m2": 7.0,
+    "precio_m2": 836
+  },
+  "Guadalajara": {
+    "itp": 0.09,
+    "ibi": 0.007,
+    "basura": 65.0,
+    "alquiler_m2": 7.8,
+    "precio_m2": 1341
+  },
+  "Toledo": {
+    "itp": 0.09,
+    "ibi": 0.0066,
+    "basura": 65.0,
+    "alquiler_m2": 7.2,
+    "precio_m2": 956
+  },
+  "Ávila": {
+    "itp": 0.08,
+    "ibi": 0.00543,
+    "basura": 50.0,
+    "alquiler_m2": 7.5,
+    "precio_m2": 1216
+  },
+  "Burgos": {
+    "itp": 0.08,
+    "ibi": 0.00456,
+    "basura": 65.0,
+    "alquiler_m2": 8.7,
+    "precio_m2": 1577
+  },
+  "León": {
+    "itp": 0.08,
+    "ibi": 0.00766,
+    "basura": 60.0,
+    "alquiler_m2": 8.9,
+    "precio_m2": 1333
+  },
+  "Palencia": {
+    "itp": 0.08,
+    "ibi": 0.00584,
+    "basura": 55.0,
+    "alquiler_m2": 7.4,
+    "precio_m2": 1366
+  },
+  "Salamanca": {
+    "itp": 0.08,
+    "ibi": 0.00712,
+    "basura": 70.0,
+    "alquiler_m2": 8.9,
+    "precio_m2": 1417
+  },
+  "Segovia": {
+    "itp": 0.08,
+    "ibi": 0.00481,
+    "basura": 60.0,
+    "alquiler_m2": 8.9,
+    "precio_m2": 1533
+  },
+  "Soria": {
+    "itp": 0.08,
+    "ibi": 0.0056,
+    "basura": 30.0,
+    "alquiler_m2": 7.4,
+    "precio_m2": 1381
+  },
+  "Valladolid": {
+    "itp": 0.08,
+    "ibi": 0.00614,
+    "basura": 60.0,
+    "alquiler_m2": 8.9,
+    "precio_m2": 1846
+  },
+  "Zamora": {
+    "itp": 0.08,
+    "ibi": 0.00477,
+    "basura": 50.0,
+    "alquiler_m2": 7.4,
+    "precio_m2": 1366
+  },
+  "Barcelona": {
+    "itp": 0.1,
+    "ibi": 0.0066,
+    "basura": 140.0,
+    "alquiler_m2": 16.5,
+    "precio_m2": 2914
+  },
+  "Barcelona capital": {
+    "itp": 0.1,
+    "ibi": 0.0066,
+    "basura": 140.0,
+    "alquiler_m2": 16.5,
+    "precio_m2": 4895
+  },
+  "Gerona": {
+    "itp": 0.1,
+    "ibi": 0.0075,
+    "basura": 80.0,
+    "alquiler_m2": 9.6,
+    "precio_m2": 2485
+  },
+  "Lérida": {
+    "itp": 0.1,
+    "ibi": 0.0085,
+    "basura": 75.0,
+    "alquiler_m2": 8.7,
+    "precio_m2": 1659
+  },
+  "Tarragona": {
+    "itp": 0.1,
+    "ibi": 0.007,
+    "basura": 85.0,
+    "alquiler_m2": 10.2,
+    "precio_m2": 1659
+  },
+  "Badajoz": {
+    "itp": 0.08,
+    "ibi": 0.0085,
+    "basura": 0.0,
+    "alquiler_m2": 5.6,
+    "precio_m2": 1485
+  },
+  "Cáceres": {
+    "itp": 0.08,
+    "ibi": 0.0075,
+    "basura": 55.0,
+    "alquiler_m2": 5.7,
+    "precio_m2": 1001
+  },
+  "La Coruña": {
+    "itp": 0.1,
+    "ibi": 0.0046,
+    "basura": 75.0,
+    "alquiler_m2": 7.6,
+    "precio_m2": 1897
+  },
+  "Lugo": {
+    "itp": 0.1,
+    "ibi": 0.0038,
+    "basura": 60.0,
+    "alquiler_m2": 7.4,
+    "precio_m2": 1453
+  },
+  "Orense": {
+    "itp": 0.1,
+    "ibi": 0.005,
+    "basura": 55.0,
+    "alquiler_m2": 7.0,
+    "precio_m2": 1571
+  },
+  "Pontevedra": {
+    "itp": 0.1,
+    "ibi": 0.0091,
+    "basura": 70.0,
+    "alquiler_m2": 8.9,
+    "precio_m2": 2436
+  },
+  "Mallorca": {
+    "itp": 0.08,
+    "ibi": 0.0065,
+    "basura": 145.0,
+    "alquiler_m2": 17.3,
+    "precio_m2": 4694
+  },
+  "Menorca": {
+    "itp": 0.08,
+    "ibi": 0.006,
+    "basura": 70.0,
+    "alquiler_m2": 14.6,
+    "precio_m2": 3740
+  },
+  "Ibiza": {
+    "itp": 0.08,
+    "ibi": 0.007,
+    "basura": 80.0,
+    "alquiler_m2": 19.1,
+    "precio_m2": 6625
+  },
+  "Formentera": {
+    "itp": 0.08,
+    "ibi": 0.0075,
+    "basura": 75.0,
+    "alquiler_m2": 19.1,
+    "precio_m2": 8794
+  },
+  "Santa Cruz de Tenerife": {
+    "itp": 0.065,
+    "ibi": 0.006,
+    "basura": 70.0,
+    "alquiler_m2": 12.4,
+    "precio_m2": 2906
+  },
+  "La Rioja": {
+    "itp": 0.07,
+    "ibi": 0.006,
+    "basura": 65.0,
+    "alquiler_m2": 7.1,
+    "precio_m2": 1362
+  },
+  "Madrid": {
+    "itp": 0.06,
+    "ibi": 0.0051,
+    "basura": 70.0,
+    "alquiler_m2": 15.6,
+    "precio_m2": 4234
+  },
+  "Madrid capital": {
+    "itp": 0.06,
+    "ibi": 0.0051,
+    "basura": 70.0,
+    "alquiler_m2": 15.6,
+    "precio_m2": 5573
+  },
+  "Murcia": {
+    "itp": 0.08,
+    "ibi": 0.0085,
+    "basura": 60.0,
+    "alquiler_m2": 7.6,
+    "precio_m2": 1458
+  },
+  "Navarra": {
+    "itp": 0.06,
+    "ibi": 0.0039,
+    "basura": 140.0,
+    "alquiler_m2": 10.1,
+    "precio_m2": 1753
+  },
+  "Álava": {
+    "itp": 0.04,
+    "ibi": 0.00323,
+    "basura": 80.0,
+    "alquiler_m2": 10.3,
+    "precio_m2": 2362
+  },
+  "Guipúzcoa": {
+    "itp": 0.04,
+    "ibi": 0.00182,
+    "basura": 140.0,
+    "alquiler_m2": 14.7,
+    "precio_m2": 2989
+  },
+  "Vizcaya": {
+    "itp": 0.04,
+    "ibi": 0.00193,
+    "basura": 90.0,
+    "alquiler_m2": 12.9,
+    "precio_m2": 3389
+  },
+  "Alicante": {
+    "itp": 0.1,
+    "ibi": 0.0075,
+    "basura": 30.0,
+    "alquiler_m2": 9.7,
+    "precio_m2": 2407
+  },
+  "Castellón de la Plana": {
+    "itp": 0.1,
+    "ibi": 0.0085,
+    "basura": 60.0,
+    "alquiler_m2": 7.1,
+    "precio_m2": 1943
+  },
+  "Valencia": {
+    "itp": 0.1,
+    "ibi": 0.00806,
+    "basura": 85.0,
+    "alquiler_m2": 10.8,
+    "precio_m2": 1689
+  },
+  "Ceuta": {
+    "itp": 0.06,
+    "ibi": 0.0067,
+    "basura": 50.0,
+    "alquiler_m2": 7.5,
+    "precio_m2": 2348
+  },
+  "Melilla": {
+    "itp": 0.06,
+    "ibi": 0.006,
+    "basura": 50.0,
+    "alquiler_m2": 7.5,
+    "precio_m2": 2073
+  }
+}
