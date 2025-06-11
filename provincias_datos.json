@@ -293,6 +293,13 @@
     "alquiler_m2": 19.1,
     "precio_m2": 8794
   },
+  "Las Palmas": {
+    "itp": 0.065,
+    "ibi": 0.0066,
+    "basura": 0.0,
+    "alquiler_m2": 14.6,
+    "precio_m2": 2636
+  },
   "Santa Cruz de Tenerife": {
     "itp": 0.065,
     "ibi": 0.006,
