@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Comparativa de Inversión</title>
   <style>
     body {
@@ -41,7 +41,6 @@
       padding: 0.5rem;
       margin-top: 0.2rem;
       width: 100%;
-      max-width: 100%;
       font-size: 1rem;
       border: 1px solid #cbd5e0;
       border-radius: 6px;
@@ -82,13 +81,12 @@
       <input type="text" id="capital" oninput="formatMiles(this)">
 
       <label>Provincia:</label>
-      <select id="provincia"></select>
+      <input type="text" id="provinciaInput" list="listaProvincias" placeholder="Escribe tu provincia...">
+      <datalist id="listaProvincias"></datalist>
+      <small style="color: #4a5568;">Los ingresos por alquiler se estiman automáticamente</small>
 
       <label>Metros cuadrados que deseas comprar:</label>
       <input type="text" id="metros2" oninput="formatMiles(this)">
-
-      <label>Alquiler mensual estimado (€):</label>
-      <input type="text" id="alquiler" oninput="formatMiles(this)">
 
       <label>¿Deseas simular una hipoteca?</label>
       <select id="hipoteca">
@@ -132,33 +130,58 @@
 
   <script>
     function formatearMiles(num) {
-      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return num
+        .toFixed(2)
+        .replace('.', ',')
+        .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
-    const selectProvincia = document.getElementById("provincia");
+    function parseMiles(input) {
+      return parseFloat(input.replace(/\./g, '').replace(',', '.')) || 0;
+    }
+
+    function formatMiles(input) {
+      let val = input.value.replace(/\./g, '').replace(',', '');
+      if (!val) return;
+      let num = parseInt(val);
+      if (isNaN(num)) {
+        input.value = '';
+        return;
+      }
+      input.value = formatearMiles(num);
+    }
+
+    const inputProvincia = document.getElementById("provinciaInput");
+    const datalist = document.getElementById("listaProvincias");
+
     fetch('provincias_datos.json')
       .then(res => res.json())
       .then(datosProvincia => {
-        Object.keys(datosProvincia).forEach(p => {
+        const provincias = Object.keys(datosProvincia).sort((a, b) => a.localeCompare(b));
+        provincias.forEach(p => {
           const opt = document.createElement("option");
           opt.value = p;
-          opt.innerText = p;
-          selectProvincia.appendChild(opt);
+          datalist.appendChild(opt);
         });
 
         window.calcularTodo = function () {
           const capital = parseMiles(document.getElementById("capital").value);
-          const provincia = document.getElementById("provincia").value;
+          const provincia = inputProvincia.value;
           const m2 = parseMiles(document.getElementById("metros2").value);
-          const alquilerMensual = parseMiles(document.getElementById("alquiler").value);
           const usarHipoteca = document.getElementById("hipoteca").value === "si";
           const datos = datosProvincia[provincia];
+
+          if (!datos) {
+            document.getElementById("resultado").innerHTML = `<p style='color:red;'>Provincia no válida. Por favor selecciona una de la lista.</p>`;
+            return;
+          }
 
           const precioCompra = m2 * datos.precio_m2;
           const gastosCompra = precioCompra * datos.itp + 500;
           const ibiAnual = precioCompra * datos.ibi;
           const basuraAnual = datos.basura;
           const costeTotal = precioCompra + gastosCompra;
+          const alquilerMensual = m2 * datos.alquiler_m2;
           const ingresoAnual = alquilerMensual * 12;
           const gastosAnuales = ibiAnual + basuraAnual;
 
@@ -197,21 +220,6 @@
     document.getElementById("hipoteca").addEventListener("change", e => {
       document.getElementById("opcionesHipoteca").style.display = e.target.value === "si" ? "block" : "none";
     });
-
-    function parseMiles(input) {
-      return parseFloat(input.replace(/\./g, '').replace(',', '.')) || 0;
-    }
-
-    function formatMiles(input) {
-      let val = input.value.replace(/\./g, '').replace(',', '');
-      if (!val) return;
-      let num = parseInt(val);
-      if (isNaN(num)) {
-        input.value = '';
-        return;
-      }
-      input.value = formatearMiles(num);
-    }
 
     function calcularFondos() {
       const capital = parseMiles(document.getElementById("capitalFondos").value);
